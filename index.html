@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spritpreise Österreich – günstig tanken in deiner Nähe</title>
+<meta name="description" content="Finde die günstigsten Tankstellen in ganz Österreich. Echtzeit-Preise für Diesel, Super 95, Gas und mehr – kostenlos für Android.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600&family=Azeret+Mono:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green:      #198754;
+    --green-dark: #0f3d24;
+    --green-deep: #0a2c19;
+    --led:        #4ade80;
+    --amber:      #ffd24a;
+    --paper:      #f5f7f4;
+    --ink:        #14251c;
+    --muted:      #5c6b62;
+    --line:       rgba(20,37,28,.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { width: min(1120px, 92vw); margin: 0 auto; }
+
+  h1, h2, h3, .display {
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    line-height: 1.02;
+    letter-spacing: -0.01em;
+  }
+
+  a { color: inherit; }
+
+  /* ---------- Header ---------- */
+  header {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(245,247,244,.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-family: 'Barlow Semi Condensed'; font-weight: 800; font-size: 1.35rem; }
+  .brand .drop {
+    width: 26px; height: 26px; border-radius: 0 50% 50% 50%;
+    transform: rotate(45deg);
+    background: var(--green); display: inline-block;
+    box-shadow: inset -3px -3px 0 rgba(0,0,0,.12);
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--green); color: #fff;
+    font-family: 'Barlow Semi Condensed'; font-weight: 700; font-size: 1.02rem;
+    padding: 11px 20px; border-radius: 10px; text-decoration: none;
+    transition: transform .15s ease, background .15s ease;
+  }
+  .btn:hover { background: #146e45; transform: translateY(-1px); }
+  .btn svg { width: 18px; height: 18px; }
+
+  /* ---------- Hero ---------- */
+  .hero { padding: 72px 0 64px; }
+  .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 56px; align-items: center; }
+  .eyebrow {
+    font-family: 'Barlow Semi Condensed'; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .14em; font-size: .82rem; color: var(--green);
+    display: inline-flex; align-items: center; gap: 8px; margin-bottom: 18px;
+  }
+  .eyebrow::before { content: ""; width: 26px; height: 2px; background: var(--green); }
+  .hero h1 { font-size: clamp(2.7rem, 6vw, 4.4rem); font-weight: 800; }
+  .hero h1 .hl { color: var(--green); }
+  .hero p.lead { font-size: 1.18rem; color: var(--muted); margin: 22px 0 32px; max-width: 30ch; }
+  .cta-row { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+  .price-note { font-size: .9rem; color: var(--muted); }
+
+  /* ---------- Price totem (signature) ---------- */
+  .totem {
+    background: linear-gradient(160deg, var(--green-dark), var(--green-deep));
+    border-radius: 22px; padding: 26px;
+    box-shadow: 0 30px 60px -20px rgba(10,44,25,.55), inset 0 1px 0 rgba(255,255,255,.06);
+    position: relative; overflow: hidden;
+  }
+  .totem::after {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(120% 60% at 80% 0%, rgba(74,222,128,.14), transparent 60%);
+    pointer-events: none;
+  }
+  .totem-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+  .totem-head .t { font-family: 'Barlow Semi Condensed'; font-weight: 800; color: #fff; font-size: 1.15rem; letter-spacing: .02em; }
+  .totem-head .loc { font-size: .78rem; color: var(--led); display: flex; align-items: center; gap: 5px; }
+  .totem-head .loc svg { width: 13px; height: 13px; }
+  .fuel {
+    display: flex; align-items: baseline; justify-content: space-between;
+    padding: 15px 0; border-bottom: 1px dashed rgba(255,255,255,.14);
+  }
+  .fuel:last-child { border-bottom: none; }
+  .fuel .name { font-family: 'Barlow Semi Condensed'; font-weight: 600; color: #cfeadd; font-size: 1.05rem; }
+  .fuel .name small { display: block; color: #7fb99b; font-weight: 500; font-size: .72rem; letter-spacing: .04em; }
+  .fuel .digits {
+    font-family: 'Azeret Mono', monospace; font-weight: 700;
+    font-size: clamp(1.7rem, 4vw, 2.3rem); color: var(--led);
+    text-shadow: 0 0 12px rgba(74,222,128,.45); font-variant-numeric: tabular-nums;
+  }
+  .fuel .digits .unit { font-size: .8rem; color: #7fb99b; text-shadow: none; margin-left: 4px; }
+  .fuel.best .digits { color: var(--amber); text-shadow: 0 0 14px rgba(255,210,74,.5); }
+  .totem-foot { margin-top: 18px; font-size: .74rem; color: #7fb99b; text-align: center; letter-spacing: .04em; }
+
+  @keyframes flicker { 0%,97%,100% { opacity: 1; } 98% { opacity: .82; } }
+  .fuel .digits { animation: flicker 6s infinite; }
+
+  /* ---------- Section shells ---------- */
+  section.block { padding: 72px 0; }
+  .sec-eyebrow {
+    font-family: 'Barlow Semi Condensed'; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .14em; font-size: .82rem; color: var(--green); margin-bottom: 12px;
+  }
+  .sec-title { font-size: clamp(1.9rem, 4vw, 2.8rem); font-weight: 800; max-width: 18ch; }
+
+  /* ---------- Features ---------- */
+  .features { background: #fff; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .feat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 44px; }
+  .feat { padding: 28px; border: 1px solid var(--line); border-radius: 16px; background: var(--paper); }
+  .feat .ic {
+    width: 46px; height: 46px; border-radius: 12px; background: rgba(25,135,84,.12);
+    display: grid; place-items: center; margin-bottom: 16px;
+  }
+  .feat .ic svg { width: 24px; height: 24px; stroke: var(--green); fill: none; stroke-width: 2; }
+  .feat h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 8px; }
+  .feat p { color: var(--muted); font-size: .98rem; }
+
+  /* ---------- Screenshots ---------- */
+  .shots-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; margin-top: 44px; }
+  .shot {
+    border-radius: 20px; overflow: hidden; background: var(--green-dark);
+    border: 1px solid var(--line); aspect-ratio: 9/16;
+    display: grid; place-items: center; color: #7fb99b; text-align: center; padding: 20px;
+    font-size: .85rem;
+  }
+  .shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* ---------- Download band ---------- */
+  .download { background: linear-gradient(160deg, var(--green-dark), var(--green-deep)); color: #fff; }
+  .download .wrap { text-align: center; padding: 76px 0; }
+  .download h2 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; }
+  .download p { color: #a7d9c1; margin: 16px auto 30px; max-width: 44ch; }
+  .btn.light { background: #fff; color: var(--green-dark); }
+  .btn.light:hover { background: #eafff3; }
+
+  /* ---------- Footer ---------- */
+  footer { background: var(--paper); padding: 44px 0; border-top: 1px solid var(--line); }
+  .foot-grid { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; align-items: center; }
+  .foot-links { display: flex; gap: 22px; flex-wrap: wrap; }
+  .foot-links a { color: var(--muted); text-decoration: none; font-size: .92rem; }
+  .foot-links a:hover { color: var(--green); }
+  .foot-meta { color: var(--muted); font-size: .86rem; }
+  .foot-src { color: var(--muted); font-size: .82rem; margin-top: 8px; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 860px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+    .hero { padding: 48px 0; }
+    .feat-grid, .shots-grid { grid-template-columns: 1fr; }
+    .nav .btn span { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fuel .digits { animation: none; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="brand"><span class="drop"></span> Spritpreise</div>
+    <a class="btn" href="https://play.google.com/store/apps/details?id=com.wernerfl.spritpreise">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 3.5v17c0 .6.7 1 1.2.6l12-8.5a.8.8 0 000-1.3l-12-8.4A.7.7 0 003 3.5z"/></svg>
+      <span>Bei Google Play</span>
+    </a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Für ganz Österreich</span>
+      <h1>Immer die <span class="hl">günstigste</span> Tankstelle in der Nähe.</h1>
+      <p class="lead">Echtzeit-Spritpreise für Diesel, Super&nbsp;95, Gas und mehr – sortiert nach Preis, direkt um dich herum.</p>
+      <div class="cta-row">
+        <a class="btn" href="https://play.google.com/store/apps/details?id=com.wernerfl.spritpreise">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 3.5v17c0 .6.7 1 1.2.6l12-8.5a.8.8 0 000-1.3l-12-8.4A.7.7 0 003 3.5z"/></svg>
+          Kostenlos herunterladen
+        </a>
+        <span class="price-note">Gratis · keine Anmeldung nötig</span>
+      </div>
+    </div>
+
+    <!-- Signature: fuel-station price totem -->
+    <div class="totem" role="img" aria-label="Beispielhafte Preistafel einer Tankstelle">
+      <div class="totem-head">
+        <span class="t">Tankstelle in der Nähe</span>
+        <span class="loc">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 00-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6.5a2.5 2.5 0 010 5z"/></svg>
+          1,2 km
+        </span>
+      </div>
+      <div class="fuel best">
+        <span class="name">Diesel <small>GÜNSTIGSTER PREIS</small></span>
+        <span class="digits">1,449<span class="unit">€/L</span></span>
+      </div>
+      <div class="fuel">
+        <span class="name">Super 95 <small>OMV · OBERDORFER STR.</small></span>
+        <span class="digits">1,589<span class="unit">€/L</span></span>
+      </div>
+      <div class="fuel">
+        <span class="name">Gas / LPG <small>JET · SALZBURGER STR.</small></span>
+        <span class="digits">0,999<span class="unit">€/L</span></span>
+      </div>
+      <div class="totem-foot">DATEN DER SPRITPREISAUSKUNFT · E-CONTROL AUSTRIA</div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="block features">
+  <div class="wrap">
+    <div class="sec-eyebrow">Warum die App</div>
+    <h2 class="sec-title">Weniger zahlen, ohne lang zu suchen.</h2>
+    <div class="feat-grid">
+      <div class="feat">
+        <div class="ic"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></div>
+        <h3>Preise vergleichen</h3>
+        <p>Alle Tankstellen rund um dich, sortiert vom günstigsten zum teuersten Preis.</p>
+      </div>
+      <div class="feat">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M13 2L4.5 12.5h6L11 22l8.5-10.5h-6z"/></svg></div>
+        <h3>Echtzeit-Daten</h3>
+        <p>Aktuelle Kraftstoffpreise aus der offiziellen Spritpreisauskunft – immer frisch.</p>
+      </div>
+      <div class="feat">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 00-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 00-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg></div>
+        <h3>GPS &amp; Ortssuche</h3>
+        <p>Automatisch per Standort oder gezielt nach Ort und Postleitzahl suchen.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCREENSHOTS -->
+<section class="block">
+  <div class="wrap">
+    <div class="sec-eyebrow">So sieht's aus</div>
+    <h2 class="sec-title">Klar, schnell, ohne Schnickschnack.</h2>
+    <div class="shots-grid">
+      <!-- Lade screenshot1.jpg / 2 / 3 ins Repo. Fehlt ein Bild, bleibt der Platzhaltertext stehen. -->
+      <div class="shot"><img src="screenshot1.jpg" alt="Tankstellenliste in der App" onerror="this.replaceWith(document.createTextNode('screenshot1.jpg hier hochladen'))"></div>
+      <div class="shot"><img src="screenshot2.jpg" alt="Ortssuche in der App" onerror="this.replaceWith(document.createTextNode('screenshot2.jpg hier hochladen'))"></div>
+      <div class="shot"><img src="screenshot3.jpg" alt="Kartenansicht in der App" onerror="this.replaceWith(document.createTextNode('screenshot3.jpg hier hochladen'))"></div>
+    </div>
+  </div>
+</section>
+
+<!-- DOWNLOAD -->
+<section class="download">
+  <div class="wrap">
+    <h2>Jetzt günstiger tanken.</h2>
+    <p>Lade Spritpreise Österreich kostenlos für Android und finde beim nächsten Tankstopp den besten Preis.</p>
+    <a class="btn light" href="https://play.google.com/store/apps/details?id=com.wernerfl.spritpreise">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 3.5v17c0 .6.7 1 1.2.6l12-8.5a.8.8 0 000-1.3l-12-8.4A.7.7 0 003 3.5z"/></svg>
+      Bei Google Play holen
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap foot-grid">
+    <div>
+      <div class="brand"><span class="drop"></span> Spritpreise Österreich</div>
+      <div class="foot-src">Preisdaten: Spritpreisauskunft der E-Control Austria. Keine Gewähr für Aktualität.</div>
+    </div>
+    <div>
+      <div class="foot-links">
+        <a href="datenschutz.html">Datenschutz</a>
+        <a href="impressum.html">Impressum</a>
+        <a href="mailto:spritpreise@gmx.info">Kontakt</a>
+      </div>
+      <div class="foot-meta" style="margin-top:10px;">© 2026 Werner FL · Österreich</div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
